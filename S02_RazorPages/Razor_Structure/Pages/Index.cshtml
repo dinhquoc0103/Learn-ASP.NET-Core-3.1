@@ -1,87 +1,134 @@
 ﻿@page
-@model IndexModel
 @{
-    ViewData["Title"] = "Home page";
-
-    //string x = "Oi doi";
-    //string y = "OI";
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+<h1>CẤU TRÚC ĐIỀU KIỆN CỦA RAZOR</h1>
 
-@*BIỂU THỨC TRONG RAZOR*@
-@*-- @DateTime.Now là biểu thức trong Razor vì nó có trả về kết quả ---*@
-@*<p>Bây giờ là @DateTime.Now</p>
-    <p>Giờ này tuần trước là: @(DateTime.Now - TimeSpan.FromDays(7))</p>
-    <p>@(@x + " " + @y)</p>*@
-
-<!--<p>1 + 1 = @(1 + 1)</p>--> <!-- explicit -->
-@*<p>Pi = @Math.PI</p>*@ <!-- implicit -->
-@*<p>Sin(10) = @Math.Sin(10)</p>*@ <!-- implicit -->
-<!--<p>Circle Area = @(Math.PI * 10 * 10)</p>--> <!-- explicit -->
-@*KHỐI CODE TRONG RAZOR (RAZOR CODE BLOCK)*@
-@*@{ // đây là một khối code
-        // khai báo và khởi tạo biến
-        var str = "Đây là một biến khai báo và khởi tạo trong code block";
-
-        string SayHello(string name)
+@*IF-ELSE*@
+@*<p>@DateTime.Today</p>
+    <p>@DateTime.Today.DayOfWeek</p>
+    <p>@DateTime.Today</p>*@
+@*@if (DateTime.Today.DayOfWeek == DayOfWeek.Monday)
+    {
+        var today = DateTime.Today;
+        if (today.Day == 1)
         {
-            return $"Hello, {name}";
+            <i>Hôm nay là ngày đầu tháng</i>
         }
-
-        var sol = Solve(1, -2, 1);
+        <strong>Chúc bạn một tuần làm việc mới hiệu quả</strong>
     }
+    else if (DateTime.Now.DayOfWeek == DayOfWeek.Friday)
+    {
+        <strong>Chúc bạn ngày cuối tuần vui vẻ</strong>
 
-    <h3>@SayHello("Covid")</h3>
-
-    <p>@str</p>
-
-    @{ // đây là một khối code khác
-        str = "Cập nhật giá trị của biến trong một code block khác";
     }
+    else
+    {
+        <strong>Chúc bạn một ngày làm việc hiệu quả</strong>
+    }*@
 
-    <p>@str</p>
-
-    <p>Phương trình x^2 + 2x + 1 = 0 có nghiệm là @Solve(1, 2, 1)</p>
-
-    <p>Phương trình x^2 - 2x + 1 = 0 có nghiệm là @sol</p>
-
-    @{ // đây cũng là một khối code
-        (double, double) Solve(double a, double b, double c)
-        {
-            var d = b * b - 4 * a * c;
-            return
-                ((-b + Math.Sqrt(d)) / (2 * a),
-                (-b - Math.Sqrt(d)) / (2 * a));
-        }
+@*SWITCH CASE*@
+@*@switch (DateTime.Today.DayOfWeek)
+    {
+        case DayOfWeek.Monday:
+            var today = DateTime.Today;
+            if (today.Day == 1)
+            {
+                <i>Hôm nay là ngày đầu tháng</i>
+            }
+            <strong>Chúc bạn một tuần làm việc mới hiệu quả</strong>
+            break;
+        case DayOfWeek.Friday:
+            <strong>Chúc bạn ngày cuối tuần vui vẻ</strong>
+            break;
+        default:
+            <strong>Chúc bạn một ngày làm việc hiệu quả</strong>
+            break;
     }*@
 
 
 
-@*TỰ ĐỘNG CHUYỀN NGÔN NGỮ TRONG KHỐI CODE BLOCK*@
+@*FOR*@
 @{
-    // Hàm này trả về một khối HTML nên không thể @SayHello. Phải sử dụng code block để tự chuyển sang html
-    void SayHello(string name)
-    {
-        <p>
-            <strong style="color:royalblue;">Hello, @name!</strong><br />
-            <span>Welcome to Razor tutorial!</span>
-        </p>
-    }
-
-    // Hàm này trả về giá trị nên @Sum bình thường
-    int Sum(int a, int b)
-    {
-        return a + b;
-    }
-    // Lời gọi hàm bình thường
-    //SayHello("H1N1");
-
-    // Dưới đây lại là đoạn HTML kết hợp với lời gọi hàm
-    <div style="background: #b6ff00;">@{SayHello("Covid"); }     @Sum(2,6)</div>
-
-    // Viết code C# bình thường
+    //var countries = new[] {
+    //    "China",
+    //    "India",
+    //    "United States",
+    //    "Indonesia",
+    //    "Pakistan",
+    //    "Brazil",
+    //    "Nigeria",
+    //    "Bangladesh",
+    //    "Russia",
+    //    "Mexico"
+    //};
 }
 
-<div style="background: #ffd800;">
-    @{ SayHello("Sars"); }
-</div>
+@*<div style="background-color:cadetblue;padding:10px;">
+        <strong>Các quốc gia đông dân nhất thế giới:</strong>
+        <ol>
+            @for (var i = 0; i < countries.Length; i++)
+            {
+                var country = countries[i];
+                if (country == "China" || country == "India")
+                {
+                    <li>@country (trên 1 tỷ dân)</li>
+                }
+                else
+                {
+                    <li>@country</li>
+                }
+            }
+        </ol>
+    </div>*@
+
+@*FOREACH*@
+@*@{
+        var countries = new[] {
+            "China",
+            "India",
+            "United States",
+            "Indonesia",
+            "Pakistan",
+            "Brazil",
+            "Nigeria",
+            "Bangladesh",
+            "Russia",
+            "Mexico" };
+    }
+
+    <div style="background-color:cadetblue;padding:10px;">
+        <strong>Các quốc gia đông dân nhất thế giới:</strong>
+        <ol>
+            @foreach (var country in countries)
+            {
+                if (country == "China" || country == "India")
+                {
+                    <li>@country (trên 1 tỷ dân)</li>
+                }
+                else
+                {
+                    <li>@country</li>
+                }
+            }
+        </ol>
+    </div>*@
+
+@*TƯƠNG TỰ CHO WHILE VÀ DO WHILE*@
+
+
+@*TRY-CATCH-FINALLY*@
+@try
+{
+    throw new InvalidOperationException("You did something invalid.");
+}
+catch (Exception ex)
+{
+    <p>The exception message: @ex.Message</p>
+}
+finally
+{
+    <p>The finally statement.</p>
+}
