@@ -1,0 +1,69 @@
+﻿@page
+@*@{ // code block
+        void SayHello(string name)
+        {
+            <p class="block">Hello, @name! I'm in the code block</p>
+        }
+    }
+
+    @functions {// functions block
+        void SayHello(string name)
+        {
+            <p class="function">Hello, @name! I'm in the functions block.</p>
+        }
+    }
+
+
+    <style>
+        .block {
+            color: dodgerblue;
+        }
+
+        .function {
+            color: yellowgreen;
+        }
+
+        .class {
+            color: blueviolet;
+        }
+    </style>
+
+
+    @{ SayHello("Covid");}
+    @{this.SayHello("Covid");}*@
+
+
+@*@functions{// functions block
+        void SayHello(string name)
+        {
+            <p class="function">Hello, @name! I'm in the functions block.</p>
+        }
+
+        public int Age { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string FullName => $"{FirstName} {LastName}";
+    }
+
+    @{ FirstName = "Donald"; LastName = "Trump";}
+    @{ this.SayHello(FullName);}
+    @this.FirstName
+    @(this.FirstName + ' ' + this.LastName)*@
+
+
+
+@*Sử dụng Model Class*@
+
+@model Model_Class.Pages.IndexModel
+
+<div>
+    <h2>@Model.SayGoodbye()</h2>
+    <div>
+        <div><label>First name:</label>@Model.FirstName</div>
+        <div><label>Last name:</label>@Model.LastName</div>
+        <div><label>My number:</label>@ViewData["MyNumber"]</div>
+        <div>@Model.Message</div>
+        <div>@ViewData["Message"]</div>
+    </div>
+</div>
+
